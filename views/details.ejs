@@ -1,0 +1,18 @@
+<%- include('./partials/header') %>
+<div class="container my-5">
+    <div class="jumbotron jumbotron-fluid bg-dark p-2 text-white rounded">
+        <div class="container">
+            <h1 class="display-5 mb-4"><%= memberName %>'s total is ₹<%= total %></h1>
+            <% for(let spend of spends) { %>
+            <div style="margin-left: 30px; margin-top: 10px; margin-bottom: 10px;">
+                <p>&#9989; ₹<%= spend.amount %> on <%= spend.item %></p>
+            </div>
+            <% } %>
+            <div class="ml-2 mt-5 mb-3">
+                <a href="/complete" class="btn btn-outline-light">Return</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

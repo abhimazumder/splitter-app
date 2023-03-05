@@ -1,0 +1,17 @@
+<%- include('./partials/header') %>
+
+<div class="container my-5">
+    <div class="text-center">
+        <div class="jumbotron jumbotron-fluid bg-dark p-2 text-white rounded">
+            <div class="container">
+                <h1 class="display-4 mb-4"><%= status %> Error &#9760;</h1>
+                <p class="lead"><%= message %></p>
+            </div>
+        </div>
+        <div class="mt-5">
+            <a href="/" class="btn btn-dark">Home</a>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

@@ -1,0 +1,24 @@
+<%- include('./partials/header') %>
+
+<div class="container my-5">
+    <div class="text-center">
+        <form action="/dashboard/edit/<%= details.doc._id %>" method="POST">
+            <div class="input-group">
+                <select id="memberName" name="memberName" class="form-select">
+                    <option value="" disabled>Select member</option>
+                    <% for(let member of details.members) { %>
+                        <option value="<%= member %>" <%= member==details.doc.memberName?"selected":null %>><%= member %></option>
+                    <% } %>
+                </select>
+                <input type="text" id="amount" name="amount" class="form-control" pattern= "^[1-9][0-9]*$" value="<%= details.doc.amount %>" required placeholder="Enter amount">
+                <input type="text" id="item" name="item" class="form-control" value="<%= details.doc.item %>" placeholder="Enter item name">
+                <button class="btn btn-dark" type="submit">Update</button>
+              </div>
+        </form>
+        <div class="mt-5">
+            <a href="/dashboard" class="btn btn-dark">Return</a>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

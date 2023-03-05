@@ -1,0 +1,39 @@
+<%- include('./partials/header') %>
+
+<div class="container my-5">
+    <div class="text-center">
+        <div>
+            <form action="/dashboard" method="POST">
+                <div class="input-group">
+                    <select id="memberName" name="memberName" class="form-select">
+                        <option value="" disabled selected>Select member</option>
+                        <% for(let member of members) { %>
+                            <option value="<%= member %>"><%= member %></option>
+                        <% } %>
+                    </select>
+                    <input type="text" id="amount" name="amount" class="form-control" pattern= "^[1-9][0-9]*$" required placeholder="Enter amount">
+                    <input type="text" id="item" name="item" class="form-control" placeholder="Enter item name (Optional)">
+                    <button class="btn btn-dark" type="submit">Add</button>
+                  </div>
+            </form>
+        </div>
+        <div class="mt-5">
+            <ul class="list-group">
+                <% for(let spend of spends) { %>
+                    <div class="d-flex mb-1 flex-row">
+                        <a class="btn btn-sm btn-dark" href="/dashboard/clear/<%= spend._id %>" style="padding-top: 7px; margin-right: 3px;">Remove</a>
+                        <li class="list-group-item rounded bg-dark" style="color:white;width: 2000px;"><%= spend.memberName %> spent ₹<%= spend.amount %> on <%= spend.item %> &#<%= generateEmoji(spend.amount) %></li>
+                        <a class="btn btn-sm btn-dark" href="/dashboard/edit/<%= spend._id %>" style="padding-top: 7px; padding-left: 20px;padding-right: 20px;margin-left: 3px;">Edit</a>
+                    </div>
+                <% } %>
+            </ul>
+            <div class="my-5">
+                <a href="/" class="btn btn-dark">Add Member</a>
+                <a href="/dashboard/clear" class="btn btn-dark">Clear</a>
+                <a href="/complete" class="btn btn-dark ml-2">Complete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

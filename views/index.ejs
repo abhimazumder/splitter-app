@@ -1,0 +1,38 @@
+<%- include('./partials/header') %>
+
+<div class="container my-5">
+    <div class="text-center">
+        <h1>Add Members &#128101;</h1>
+        <div class="mt-5">
+            <form action="/" method="POST">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="username" name="username" required placeholder="Enter Member">
+                    <button class="btn btn-dark" type="submit">Add</button>
+                </div>
+            </form>
+        </div>
+        <div class=" mt-5">
+            <select class="form-select form-select-lg mt-5">
+                <option value="" disabled selected>Click to view added members</option>
+                <% for(let member of members) { %>
+                    <option><%= member %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="mt-5">
+            <a href="/clear" class="btn btn btn-dark">Clear</a>
+            <a href="/next" class="btn btn btn-dark ml-2">Next</a>
+        </div>
+        <% if(warning){ %>
+            <div class="alert alert-warning my-5 mx-5" role="alert" style="padding:3px;">
+                &#9888; Clearing members now will clear out all spend records!
+            </div>
+        <% } else if(members.length < 2){ %>
+            <div class="alert alert-info my-5 mx-5" role="alert" style="padding:3px;">
+                &#8505; To continue, you must add at least 2 members.
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

@@ -1,0 +1,7 @@
+{
+    "env" : {
+        "PORT" : 3003,
+        "ATLAS_USERNAME" : "abhishekmazumder",
+        "ATLAS_PASSWORD" : "Asdfg09876"
+    }
+}
