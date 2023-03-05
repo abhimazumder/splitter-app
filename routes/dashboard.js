@@ -2,13 +2,12 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 
-const generateEmoji = require('../utils/generateEmojis');
+const getEmoji = require('../utils/generateEmojisUtil');
 
 const mongoose = require('mongoose');
 const Spend = require('../models/spend');
 
 let members = [];
-let spends = [];
 
 router.get('/', async (req, res, next) => {
     try{
@@ -27,12 +26,11 @@ router.get('/', async (req, res, next) => {
 
     await Spend.find()
     .exec()
-    .then(docs => {
-        spends = docs;
+    .then(result => {
         res.render('dashboard', {
             members : members,
-            spends : spends,
-            generateEmoji : generateEmoji
+            spends : result,
+            getEmoji : getEmoji
         });
     })
     .catch(error => {
@@ -89,12 +87,12 @@ router.get('/clear/:_id', async (req, res, next) => {
 router.get('/edit/:_id', async (req, res, next) => {
     await Spend.findById(req.params._id)
     .exec()
-    .then(doc => {
-        console.log(doc);
-        res.render('edit', {details : {
-            doc : doc,
-            members : JSON.parse(fs.readFileSync('membersData.txt', {encoding:'utf8', flag:'r'}))
-        }});
+    .then(result => {
+        res.render('edit', {
+            doc : result,
+            members : JSON.parse(fs.readFileSync('membersData.txt', {encoding:'utf8', flag:'r'})),
+            getEmoji : getEmoji
+        });
     })
     .catch(error => {
         console.log(error);
@@ -115,8 +113,7 @@ router.post('/edit/:_id', async (req, res, next) => {
     })
     .exec()
     .then(result => {
-        console.log(result);
-        res.redirect('/dashboard');
+        res.redirect('back');
     })
     .catch(error => {
         console.log(error);

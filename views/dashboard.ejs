@@ -22,8 +22,8 @@
                 <% for(let spend of spends) { %>
                     <div class="d-flex mb-1 flex-row">
                         <a class="btn btn-sm btn-dark" href="/dashboard/clear/<%= spend._id %>" style="padding-top: 7px; margin-right: 3px;">Remove</a>
-                        <li class="list-group-item rounded bg-dark" style="color:white;width: 2000px;"><%= spend.memberName %> spent ₹<%= spend.amount %> on <%= spend.item %> &#<%= generateEmoji(spend.amount) %></li>
-                        <a class="btn btn-sm btn-dark" href="/dashboard/edit/<%= spend._id %>" style="padding-top: 7px; padding-left: 20px;padding-right: 20px;margin-left: 3px;">Edit</a>
+                        <li class="list-group-item rounded bg-dark" style="color:white;width:2000px;"><%= spend.memberName %> spent ₹<%= spend.amount %> on <%= spend.item %> &#<%= getEmoji(spend.amount) %></li>
+                        <a class="btn btn-sm btn-dark" href="/dashboard/edit/<%= spend._id %>" style="padding-top:7px;padding-left:20px;padding-right:20px;margin-left:3px;">Edit</a>
                     </div>
                 <% } %>
             </ul>

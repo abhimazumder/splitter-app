@@ -6,12 +6,8 @@ const Spend = require('../models/spend');
 
 let members = [];
 
-if(fs.existsSync('membersData.txt')){
-    console.log("Data file already exists, loading data");
+if(fs.existsSync('membersData.txt'))
     members = JSON.parse(fs.readFileSync('membersData.txt', {encoding:'utf8', flag:'r'}));
-} else {
-    console.log("Data file doesn't exists, creating data file");
-}
 
 router.get('/', async (req, res, next) => {
     let warning = false;
@@ -41,6 +37,7 @@ router.post('/', async (req, res, next) => {
 router.get('/next', async (req, res, next) => {
     if(members.length < 2)
         return res.redirect('/');
+    
     const stringData = JSON.stringify(members);
     try{
         fs.writeFileSync("membersData.txt", stringData, 'utf8');
