@@ -1,20 +1,20 @@
 <%- include('./partials/header') %>
 
 <div class="container my-5">
-    <div class="d-flex fles-row" style="justify-content:center;align-items:center;">
-    <span style="width:20%;">
+    <div class="d-flex fles-row justify-content-center">
+    <span class="w-25">
         <div>
-            <div class="card text-white bg-dark mb-2" style="max-width:13rem;max-height:4rem;">
-                <div class="card-body">
-                    <div class="d-flex flex-row" style="justify-content: space-between;">
+            <div class="card text-white bg-dark m-2 pt-2">
+                <div class="card-body align-middle">
+                    <div class="d-flex flex-row justify-content-between">
                         <span class="card-title"><h5 class="card-text" style="color:lightskyblue;">₹ <%= total %></h5></span>
                         <span><p class="float-end">Total &#128176;</p></span>
                     </div>
                 </div>
             </div>
-            <div class="card text-white bg-dark mb-4" style="max-width:13rem;max-height:4rem;">
-                <div class="card-body">
-                    <div class="d-flex flex-row" style="justify-content: space-between;">
+            <div class="card text-white bg-dark m-2 pt-2">
+                <div class="card-body align-middle">
+                    <div class="d-flex flex-row justify-content-between">
                         <span class="card-title"><h5 class="card-text" style="color:lightskyblue;">₹ <%= average %></h5></span>
                         <span><p class="float-end">Average &#128176;</p></span>
                     </div>
@@ -22,11 +22,11 @@
             </div>
         </div>
     </span>
-    <span style="width:80%;">
+    <span class="w-75">
         <div class="row row-cols-1 row-cols-md-3">
             <% for(let due of dues){ %>
-                <div class="col mb-4">
-                    <div class="card text-white bg-dark" id="<%= due.memberName %>">
+                <div class="col">
+                    <div class="card text-white bg-dark m-2" id="<%= due.memberName %>">
                         <% if(due.type=='Receive' ) { %>
                             <div class="card-header">
                                 <%= due.memberName %> &#129297;
@@ -40,7 +40,7 @@
                             <div class="card-body">
                                 <h5 class="card-title" style="color:gold">₹ <%= due.difference %></h5>
                         <% } %>
-                                <div class="d-flex flex-row" style="justify-content: space-between;">
+                                <div class="d-flex flex-row justify-content-between">
                                     <span>
                                         <p class="card-text"><%= due.type %></p>
                                     </span>
@@ -54,7 +54,7 @@
             </span>
         </div>
         <div class="my-5 text-center">
-            <a href="/dashboard" class="btn btn-dark">Return</a>
+            <a href="/dashboard" class="btn btn-dark m-1">Return</a>
         </div>
     </div>
 </div>

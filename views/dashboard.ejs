@@ -20,17 +20,17 @@
         <div class="mt-5">
             <ul class="list-group">
                 <% for(let spend of spends) { %>
-                    <div class="d-flex mb-1 flex-row">
-                        <a class="btn btn-sm btn-dark" href="/dashboard/clear/<%= spend._id %>" style="padding-top: 7px; margin-right: 3px;">Remove</a>
-                        <li class="list-group-item rounded bg-dark" style="color:white;width:2000px;"><%= spend.memberName %> spent ₹<%= spend.amount %> on <%= spend.item %> &#<%= getEmoji(spend.amount) %></li>
-                        <a class="btn btn-sm btn-dark" href="/dashboard/edit/<%= spend._id %>" style="padding-top:7px;padding-left:20px;padding-right:20px;margin-left:3px;">Edit</a>
+                    <div class="d-flex flex-row">
+                        <li class="list-group-item rounded bg-dark text-white m-1 w-100"><%= spend.memberName %> spent ₹<%= spend.amount %> on <%= spend.item %> &#<%= getEmoji(spend.amount) %></li>
+                        <a class="btn btn-sm btn-dark m-1 py-2 px-3" href="/dashboard/edit/<%= spend._id %>">Edit</a>
+                        <a class="btn btn-sm btn-dark m-1 py-2 px-3" href="/dashboard/clear/<%= spend._id %>">Remove</a>
                     </div>
                 <% } %>
             </ul>
             <div class="my-5">
-                <a href="/" class="btn btn-dark">Add Member</a>
-                <a href="/dashboard/clear" class="btn btn-dark">Clear</a>
-                <a href="/complete" class="btn btn-dark ml-2">Complete</a>
+                <a href="/" class="btn btn-dark m-1">Add Member</a>
+                <a href="/dashboard/clear" class="btn btn-dark m-1">Clear</a>
+                <a href="/complete" class="btn btn-dark m-1">Complete</a>
             </div>
         </div>
     </div>

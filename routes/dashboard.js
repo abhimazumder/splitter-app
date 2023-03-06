@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
+const checkAuth = require('../utils/checkAuthUtil');
 
 const getEmoji = require('../utils/generateEmojisUtil');
 
@@ -57,6 +58,12 @@ router.post('/', async (req, res, next) => {
         next(error);
     });
 });
+
+/*router.get('/clear', async (req, res, next) => {
+    const token = await checkAuth.getToken();
+    res.cookie('Auth', token);
+    res.redirect('/dashboard/clear'); //call actual clear
+});*/
 
 router.get('/clear', async (req, res, next) => {
     await Spend.deleteMany()

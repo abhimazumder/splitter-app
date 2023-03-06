@@ -1,6 +1,6 @@
 const generateEmoji = (amount) => {
     if(amount < 50)
-        return 'x1FA99;'
+        return '129689;'
     if(amount < 500)
         return '128181;'
     if(amount < 1000)

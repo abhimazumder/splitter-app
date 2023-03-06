@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const getSummary = require('../utils/summaryUtil');
+const generateEmoji = require('../utils/generateEmojisUtil');
+
 const Spend = require('../models/spend');
 
 router.get('/', async (req, res, next) => {
@@ -29,7 +31,8 @@ router.get('/:memberName/:total', async (req, res, next) => {
         res.render('details', {
             memberName : req.params.memberName,
             spends : result,
-            total : req.params.total
+            total : req.params.total,
+            generateEmoji : generateEmoji
         });
     })
     .catch(error => {
