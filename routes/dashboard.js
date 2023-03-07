@@ -17,8 +17,8 @@ router.get('/', async (req, res, next) => {
 
     members = JSON.parse(fs.readFileSync('membersData.txt', {encoding:'utf8', flag:'r'}));
     
-    if(members.length < 2)
-        return res.redirect('/');
+    /*if(members.length < 2)
+        return res.redirect('/');*/ //i guess i checked min members before
     }
     catch(error){
         console.log(error);
@@ -51,7 +51,7 @@ router.post('/', async (req, res, next) => {
     await spend.save()
     .then(result => {
         console.log(result);
-        return res.redirect('/dashboard');
+        return res.redirect('back');
     })
     .catch(error => {
         console.log(error);
@@ -70,7 +70,7 @@ router.get('/clear', async (req, res, next) => {
     .exec()
     .then(result => {
         console.log("All entries cleared");
-        return res.redirect('/dashboard');
+        return res.redirect('back');
     })
     .catch(error => {
         console.log(error);
@@ -83,7 +83,7 @@ router.get('/clear/:_id', async (req, res, next) => {
     .exec()
     .then(result =>{
         console.log("Database entry", req.params._id, "deleted");
-        return res.redirect('/dashboard');
+        return res.redirect('back');
     })
     .catch(error => {
         console.log(error);

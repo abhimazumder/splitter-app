@@ -1,50 +1,70 @@
 <%- include('./partials/header') %>
 
-<div class="container my-5">
+  <div class="container my-5">
     <div class="row mb-5 text-white">
-        <div class="col-sm-4 mb-1">
-          <div class="card bg-dark">
-            <div class="card-body d-flex flex-row" style="justify-content:space-between;">
-              <span><h5 class="card-title">&#128100; Member</h5></span>
-              <span class="float-end"><p class="card-text"><%= doc.memberName %></p></span>
-            </div>
+      <div class="col-sm-4 mb-1">
+        <div class="card bg-dark">
+          <div class="card-body d-flex flex-row" style="justify-content:space-between;">
+            <span>
+              <h5 class="card-title">&#128100; Member</h5>
+            </span>
+            <span class="float-end">
+              <p class="card-text">
+                <%= doc.memberName %>
+              </p>
+            </span>
           </div>
         </div>
-        <div class="col-sm-4 mb-1">
-          <div class="card bg-dark">
-            <div class="card-body d-flex flex-row" style="justify-content:space-between;">
-                <span><h5 class="card-title">&#<%= getEmoji(doc.amount) %> Amount</h5></span>
-                <span class="float-end"><p class="card-text">₹ <%= doc.amount %></p></span>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4 mb-1">
-            <div class="card bg-dark">
-                <div class="card-body d-flex flex-row" style="justify-content:space-between;">
-                    <span><h5 class="card-title">&#128717; Item</h5></span>
-                    <span class="float-end"><p class="card-text"><%= doc.item %></p></span>
-                  </div>
-            </div>
-          </div>
       </div>
-    <div class="text-center">
-        <form action="/dashboard/edit/<%= doc._id %>" method="POST">
-            <div class="input-group">
-                <select id="memberName" name="memberName" class="form-select">
-                    <option value="" disabled>Select member</option>
-                    <% for(let member of members) { %>
-                        <option value="<%= member %>" <%= member==doc.memberName?"selected":null %>><%= member %></option>
-                    <% } %>
-                </select>
-                <input type="text" id="amount" name="amount" class="form-control" pattern= "^[1-9][0-9]*$" value="<%= doc.amount %>" required placeholder="Enter amount">
-                <input type="text" id="item" name="item" class="form-control" value="<%= doc.item %>" placeholder="Enter item name">
-                <button class="btn btn-dark" type="submit">Update</button>
-              </div>
-        </form>
-        <div class="mt-5">
-            <a href="/dashboard" class="btn btn-dark m-1">Return</a>
+      <div class="col-sm-4 mb-1">
+        <div class="card bg-dark">
+          <div class="card-body d-flex flex-row" style="justify-content:space-between;">
+            <span>
+              <h5 class="card-title">&#<%= getEmoji(doc.amount) %> Amount</h5>
+            </span>
+            <span class="float-end">
+              <p class="card-text">₹ <%= doc.amount %>
+              </p>
+            </span>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-4 mb-1">
+        <div class="card bg-dark">
+          <div class="card-body d-flex flex-row" style="justify-content:space-between;">
+            <span>
+              <h5 class="card-title">&#128717; Item</h5>
+            </span>
+            <span class="float-end">
+              <p class="card-text">
+                <%= doc.item %>
+              </p>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+    <div class="text-center">
+      <form action="/dashboard/edit/<%= doc._id %>" method="POST">
+        <div class="input-group">
+          <select id="memberName" name="memberName" class="form-select">
+            <option value="" disabled>Select member</option>
+            <% for(let member of members) { %>
+              <option value="<%= member %>" <%=member==doc.memberName?"selected":null %>><%= member %>
+              </option>
+              <% } %>
+          </select>
+          <input type="text" id="amount" name="amount" class="form-control" pattern="^[1-9][0-9]*$"
+            value="<%= doc.amount %>" required placeholder="Enter amount">
+          <input type="text" id="item" name="item" class="form-control" value="<%= doc.item %>"
+            placeholder="Enter item name">
+          <button class="btn btn-dark" type="submit">Update</button>
+        </div>
+      </form>
+      <div class="mt-5">
+        <a href="/dashboard" class="btn btn-dark m-1">Return</a>
+      </div>
+    </div>
+  </div>
 
-<%- include('./partials/footer') %>
+  <%- include('./partials/footer') %>

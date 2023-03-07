@@ -31,17 +31,16 @@ router.post('/', async (req, res, next) => {
     if(members.includes(req.body.username))
         return res.redirect('/');
     members.push(req.body.username);
-    res.redirect('/');
+    res.redirect('back');
 });
 
 router.get('/next', async (req, res, next) => {
     if(members.length < 2)
-        return res.redirect('/');
+        return res.redirect('back');
     
     const stringData = JSON.stringify(members);
     try{
         fs.writeFileSync("membersData.txt", stringData, 'utf8');
-        console.log("Data file written successfully");
         res.redirect('/dashboard');
     }
     catch(error){
@@ -61,13 +60,12 @@ router.get('/clear', async (req, res, next) => {
             }
         });
     }
-    console.log("Data file deleted successfully");
 
     await Spend.deleteMany({})
     .exec()
     .then(result => {
         console.log("All entries cleared");
-        res.redirect('/');
+        res.redirect('back');
     })
     .catch(error => {
         console.log(error);

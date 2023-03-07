@@ -1,20 +1,23 @@
 <%- include('./partials/header') %>
-<div class="container my-5">
-    <div class="jumbotron jumbotron-fluid bg-dark text-white rounded">
-        <div class="container p-3">
-            <h1 class="display-5"><%= memberName %>'s total is ₹<%= total %></h1>
-            <div class="m-5">
-                <% for(let spend of spends) { %>
-                    <div>
-                        <p>&#<%= generateEmoji(spend.amount) %> ₹<%= spend.amount %> on <%= spend.item %></p>
-                    </div>
-                <% } %>
-            </div>
-            <div class="ml-2">
-                <a href="/complete" class="btn btn-outline-light m-1">Return</a>
+    <div class="container my-5">
+        <div class="jumbotron jumbotron-fluid bg-dark text-white rounded">
+            <div class="container p-3">
+                <h1>
+                    <%= memberName %>'s total is ₹ <%= total %>
+                </h1>
+                <div class="m-5">
+                    <% for(let spend of spends) { %>
+                        <div>
+                            <p>&#<%= generateEmoji(spend.amount) %> ₹ <%= spend.amount %> on <%= spend.item %>
+                            </p>
+                        </div>
+                        <% } %>
+                </div>
+                <div class="ml-2">
+                    <a href="/complete" class="btn btn-outline-light m-1">Return</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<%- include('./partials/footer') %>
+    <%- include('./partials/footer') %>
