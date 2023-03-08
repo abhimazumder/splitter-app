@@ -28,9 +28,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-    if(members.includes(req.body.username))
-        return res.redirect('/');
-    members.push(req.body.username);
+    if(!members.includes(req.body.username))
+        members.push(req.body.username);
     res.redirect('back');
 });
 

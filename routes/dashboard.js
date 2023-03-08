@@ -1,35 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const checkAuth = require('../utils/checkAuthUtil');
 
 const getEmoji = require('../utils/generateEmojisUtil');
 
 const mongoose = require('mongoose');
 const Spend = require('../models/spend');
 
-let members = [];
-
 router.get('/', async (req, res, next) => {
     try{
         if(!fs.existsSync('membersData.txt'))
-        return res.redirect('/');
-
-    members = JSON.parse(fs.readFileSync('membersData.txt', {encoding:'utf8', flag:'r'}));
-    
-    /*if(members.length < 2)
-        return res.redirect('/');*/ //i guess i checked min members before
+            return res.redirect('back');
     }
     catch(error){
         console.log(error);
         next(error);
     }
-
     await Spend.find()
     .exec()
     .then(result => {
         res.render('dashboard', {
-            members : members,
+            members : JSON.parse(fs.readFileSync('membersData.txt', {encoding:'utf8', flag:'r'})),
             spends : result,
             getEmoji : getEmoji
         });
@@ -47,7 +38,6 @@ router.post('/', async (req, res, next) => {
         amount : req.body.amount,
         item : req.body.item == ""?"something he/she doesn't know":req.body.item
     });
-
     await spend.save()
     .then(result => {
         console.log(result);
@@ -58,12 +48,6 @@ router.post('/', async (req, res, next) => {
         next(error);
     });
 });
-
-/*router.get('/clear', async (req, res, next) => {
-    const token = await checkAuth.getToken();
-    res.cookie('Auth', token);
-    res.redirect('/dashboard/clear'); //call actual clear
-});*/
 
 router.get('/clear', async (req, res, next) => {
     await Spend.deleteMany()
