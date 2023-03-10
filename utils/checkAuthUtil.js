@@ -1,31 +1,56 @@
-const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
-const getToken = () => {
-    if(fs.existsSync('jwtToken.txt')){
-        const token = fs.readFileSync('jwtToken.txt', {encoding:'utf8', flag:'r'});
-        return token;
-    }
-    
-    const token = jwt.sign({data: 'thisWillExpireIn30seconds'}, 'dummy',  {expiresIn: 30});
-    fs.writeFileSync('jwtToken.txt', token, 'utf8');
-    setTimeout(()=>{
-        fs.unlinkSync('jwtToken.txt');
-    }, 30000);
+const member = require('../models/member');
+const Spend = require('../models/spend');
+
+const generateToken = (ip) => {
+    const token = jwt.sign({ ip: ip }, process.env.SECRET_KEY, { expiresIn: '1h' });
+    console.log("Token generated for IP:", ip, "\naccessToken :", token);
+    setTimeout(() => {
+        member.deleteMany({ sessionId: token })
+            .exec()
+            .then(result => {
+                console.log("Members deleted due to token reached expiry", token);
+            })
+            .catch(error => {
+                console.log(error);
+                next(error);
+            });
+
+        Spend.deleteMany({ sessionId: token })
+            .exec()
+            .then(result => {
+                console.log("Spends deleted due to token reached expiry", token);
+            })
+            .catch(error => {
+                console.log(error);
+                next(error);
+            });
+    }, 1000 * 60 * 60);
 
     return token;
 }
 
-const checkToken = (req, res, next) => {
-    try{
-        const token = req.cookies.Auth;
-        const decode = jwt.verify(token, 'secret');
-        next();
-    }
-    catch(error){
-        console.log(error);
-        next(error);
-    }
+const isTokenValid = (token) => {
+    let isValid;
+    jwt.verify(token, process.env.SECRET_KEY, (error, decode) => {
+        if (error || (decode.exp - decode.iat) < 0) {
+            isValid = false;
+        } else {
+            isValid = true;
+        }
+    });
+    return isValid;
+};
+
+const checkAuth = (req, res, next) => {
+    const token = req.cookies.accessToken;
+    jwt.verify(token, process.env.SECRET_KEY, (error, decode) => {
+        if (error || (decode.exp - decode.iat) < 0) {
+            next(error);
+        }
+    });
+    next();
 }
 
-module.exports = {getToken, checkToken};
+module.exports = { generateToken, isTokenValid, checkAuth };

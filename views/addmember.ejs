@@ -4,9 +4,9 @@
         <div class="text-center">
             <h1>Add Members &#128101;</h1>
             <div class="mt-5">
-                <form action="/" method="POST">
+                <form action="/addmember" method="POST">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="username" name="username" required
+                        <input type="text" class="form-control" id="membername" name="membername" required
                             placeholder="Enter Member">
                         <button class="btn btn-dark" type="submit">Add</button>
                     </div>
@@ -23,8 +23,8 @@
                 </select>
             </div>
             <div class="mt-5">
-                <a href="/clear" class="btn btn btn-dark m-1">Clear</a>
-                <a href="/next" class="btn btn btn-dark m-1">Next</a>
+                <a href="/addmember/clear" class="btn btn btn-dark m-1">Clear</a>
+                <a href="/addmember/next" class="btn btn btn-dark m-1">Next</a>
             </div>
             <% if(warning){ %>
                 <div class="alert alert-warning m-5" role="alert" style="padding:3px;">

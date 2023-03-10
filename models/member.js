@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const SpendSchema = mongoose.Schema({
+const memberSchema = mongoose.Schema({
     sessionId: {
         type: String,
         required: true
@@ -12,15 +12,7 @@ const SpendSchema = mongoose.Schema({
     memberName: {
         type: String,
         required: true
-    },
-    amount: {
-        type: Number,
-        required: true
-    },
-    item: {
-        type: String,
-        required: false
     }
 });
 
-module.exports = mongoose.model("Spend", SpendSchema);
+module.exports = mongoose.model("Member", memberSchema);

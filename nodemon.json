@@ -2,6 +2,7 @@
     "env" : {
         "PORT" : 3003,
         "ATLAS_USERNAME" : "abhishekmazumder",
-        "ATLAS_PASSWORD" : "Asdfg09876"
+        "ATLAS_PASSWORD" : "Asdfg09876",
+        "SECRET_KEY" : "85637FD13FF3495A89FC5EFF3ECAB"
     }
 }
