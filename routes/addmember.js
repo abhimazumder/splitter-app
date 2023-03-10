@@ -12,7 +12,6 @@ router.get('/', checkAuth.checkAuth, async (req, res, next) => {
     await Member.find({ sessionId: req.cookies.accessToken })
         .exec()
         .then(result => {
-            console.log(result);
             result.forEach(member => {
                 members.push(member.memberName);
             })
@@ -42,13 +41,13 @@ router.get('/', checkAuth.checkAuth, async (req, res, next) => {
 router.post('/', checkAuth.checkAuth, async (req, res, next) => {
     try {
         const doc = await Member.find({ sessionId: req.cookies.accessToken, memberName: req.body.membername });
+        if (doc.length != 0) {
+            res.redirect('back');
+        }
     }
     catch (error) {
         console.log(error);
         next(error);
-    }
-    if (doc.length != 0) {
-        return res.redirect('back');
     }
     const member = new Member({
         sessionId: req.cookies.accessToken,
