@@ -3,14 +3,12 @@ const jwt = require('jsonwebtoken');
 const member = require('../models/member');
 const Spend = require('../models/spend');
 
-const generateToken = (ip) => {
-    const token = jwt.sign({ ip: ip }, process.env.SECRET_KEY, { expiresIn: '1h' });
-    console.log("Token generated for IP:", ip, "\naccessToken :", token);
+const deleteData = (token, time) => {
     setTimeout(() => {
         member.deleteMany({ sessionId: token })
             .exec()
             .then(result => {
-                console.log("Members deleted due to token reached expiry", token);
+                console.log("Members deleted due to token reached expiry\naccessToken :", token);
             })
             .catch(error => {
                 console.log(error);
@@ -20,14 +18,19 @@ const generateToken = (ip) => {
         Spend.deleteMany({ sessionId: token })
             .exec()
             .then(result => {
-                console.log("Spends deleted due to token reached expiry", token);
+                console.log("Spends deleted due to token reached expiry\naccessToken :", token);
             })
             .catch(error => {
                 console.log(error);
                 next(error);
             });
-    }, 1000 * 60 * 60);
+    }, time);
+};
 
+const generateToken = (ip) => {
+    const token = jwt.sign({ ip: ip }, process.env.SECRET_KEY, { expiresIn: '1h' });
+    console.log("Token generated for IP:", ip, "\naccessToken :", token);
+    deleteData(token, 1000*60*60);
     return token;
 }
 
@@ -53,4 +56,4 @@ const checkAuth = (req, res, next) => {
     next();
 }
 
-module.exports = { generateToken, isTokenValid, checkAuth };
+module.exports = { deleteData, generateToken, isTokenValid, checkAuth };

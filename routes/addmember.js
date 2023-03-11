@@ -42,7 +42,7 @@ router.post('/', checkAuth.checkAuth, async (req, res, next) => {
     try {
         const doc = await Member.find({ sessionId: req.cookies.accessToken, memberName: req.body.membername });
         if (doc.length != 0) {
-            res.redirect('back');
+            return res.redirect('back');
         }
     }
     catch (error) {
@@ -81,8 +81,7 @@ router.get('/clear', checkAuth.checkAuth, async (req, res, next) => {
     await Member.deleteMany({ sessionId: req.cookies.accessToken })
         .exec()
         .then(result => {
-            console.log("All members deleted");
-            res.redirect('back');
+            console.log("Members deleted due to user cleared all members");
         })
         .catch(error => {
             console.log(error);
@@ -92,13 +91,13 @@ router.get('/clear', checkAuth.checkAuth, async (req, res, next) => {
     await Spend.deleteMany({ sessionId: req.cookies.accessToken })
         .exec()
         .then(result => {
-            console.log("All entries cleared");
-            res.redirect('back');
+            console.log("Spends deleted due to user cleared all members");
         })
         .catch(error => {
             console.log(error);
             next(error);
         });
+    res.redirect('back');
 })
 
 module.exports = router;

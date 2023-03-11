@@ -59,6 +59,7 @@ router.get('/clear', checkAuth.checkAuth, async (req, res, next) => {
     await Spend.deleteMany({ sessionId: req.cookies.accessToken })
         .exec()
         .then(result => {
+            console.log("Spends deleted due to user cleared expenses")
             return res.redirect('back');
         })
         .catch(error => {

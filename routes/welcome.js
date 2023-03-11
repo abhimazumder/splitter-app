@@ -23,7 +23,8 @@ router.get('/create', (req, res, next) => {
 
 router.get('/end', (req, res, next) => {
     sessionExists = false;
-    res.clearCookie('accessToken').redirect('back');
+    checkAuth.deleteData(req.cookies.accessToken, 0);
+    res.clearCookie('accessToken').redirect('/');
 })
 
 module.exports = router;
