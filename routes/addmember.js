@@ -68,7 +68,7 @@ router.get('/next', checkAuth.checkAuth, async (req, res, next) => {
     try {
         const count = await Member.countDocuments({ sessionId: req.cookies.accessToken });
         if (count < 2)
-            return res.redirect('back'); t
+            return res.redirect('back');
         res.redirect('/dashboard');
     }
     catch (error) {

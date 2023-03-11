@@ -11,38 +11,27 @@
                         Here is a list of things you can do and you can't.
                     </p>
                 </div>
-                <div class="m-2">
-                    <div class="p-1">
-                        <h4>
-                            &#9989; Dos
-                        </h4>
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                            <li>Sed non risus.</li>
-                            <li>Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
-                            </li>
-                            <li>Cras elementum ultrices diam.</li>
-                            <li>Maecenas ligula massa, varius a, semper congue, euismod non, mi.</li>
-                        </ul>
-                    </div>
-                    <div class="p-1">
-                        <h4>
-                            &#9940; Don'ts
-                        </h4>
-                        <ul>
-                            <li>Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam
-                                nisl sit amet erat.</li>
-                            <li>Duis semper.</li>
-                            <li>Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim.</li>
-                            <li>Pellentesque congue.</li>
-                            <li>Ut in risus volutpat libero pharetra tempor.</li>
-                        </ul>
-                    </div>
+                <div class="p-1">
+                    <h4>
+                        &#9989; How to use
+                    </h4>
+                    <ul>
+                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                        <li>Sed non risus.</li>
+                        <li>Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
+                        </li>
+                        <li>Cras elementum ultrices diam.</li>
+                        <li>Maecenas ligula massa, varius a, semper congue, euismod non, mi.</li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="my-5 text-center">
-            <a href="/next" class="btn btn-dark m-1">Next</a>
+            <a href="/create" class="btn btn-dark m-1 <%= sessionExists==true?'disabled':null %>">Create Session</a>
+            <% if(sessionExists) { %>
+                <a href="/addmember" class="btn btn-dark m-1">Next</a>
+                <a href="/end" class="btn btn-dark m-1">End Session</a>
+                <% } %>
         </div>
     </div>
 

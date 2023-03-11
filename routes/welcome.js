@@ -3,21 +3,27 @@ const router = express.Router();
 
 const checkAuth = require('../utils/checkAuthUtil');
 
+let sessionExists = false;
+
 router.get('/', (req, res, next) => {
-    res.render('welcome');
+    if (typeof (req.cookies.accessToken) == 'undefined' || !checkAuth.isTokenValid(req.cookies.accessToken))
+        sessionExists = false;
+    else
+        sessionExists = true;
+    res.render('welcome', {
+        sessionExists: sessionExists
+    });
 });
 
-router.get('/next', (req, res, next) => {
-    let token = req.cookies.accessToken;
-    if (!token) {
-        token = checkAuth.generateToken(req.ip);
-        return res.cookie("accessToken", token, { httpOnly: true }).redirect('/addmember');
-    } else {
-        if (checkAuth.isTokenValid(token)) {
-            return res.redirect('/addmember');
-        }
-        return res.clearCookie('accessToken').redirect('/next');
-    }
+router.get('/create', (req, res, next) => {
+    const token = checkAuth.generateToken(req.ip);
+    sessionExists = true;
+    res.cookie("accessToken", token, { httpOnly: true }).redirect('/addmember');
 });
+
+router.get('/end', (req, res, next) => {
+    sessionExists = false;
+    res.clearCookie('accessToken').redirect('back');
+})
 
 module.exports = router;
