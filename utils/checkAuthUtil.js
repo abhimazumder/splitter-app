@@ -30,7 +30,7 @@ const deleteData = (token, time) => {
 const generateToken = (ip) => {
     const token = jwt.sign({ ip: ip }, process.env.SECRET_KEY, { expiresIn: '1h' });
     console.log("Token generated for IP:", ip, "\naccessToken :", token);
-    deleteData(token, 1000*60*60);
+    deleteData(token, 1000 * 60 * 60);
     return token;
 }
 

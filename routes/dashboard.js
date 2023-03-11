@@ -9,6 +9,16 @@ const Spend = require('../models/spend');
 const Member = require('../models/member');
 
 router.get('/', checkAuth.checkAuth, async (req, res, next) => {
+    try {
+        const count = await Member.countDocuments({ sessionId: req.cookies.accessToken });
+        if (count < 2)
+            return res.redirect('/addmember');
+        res.redirect('/dashboard');
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
     let members = [];
     await Member.find({ sessionId: req.cookies.accessToken })
         .exec()
@@ -22,12 +32,25 @@ router.get('/', checkAuth.checkAuth, async (req, res, next) => {
             next(error);
         });
 
+    let warning = false;
+    try {
+        const count = await Spend.countDocuments({ sessionId: req.cookies.accessToken });
+        if (count == 0) {
+            warning = true;
+        }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+
     await Spend.find({ sessionId: req.cookies.accessToken })
         .exec()
         .then(result => {
             res.render('dashboard', {
                 members: members,
                 spends: result,
+                warning: warning,
                 getEmoji: getEmoji
             });
         })

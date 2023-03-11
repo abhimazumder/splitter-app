@@ -21,11 +21,22 @@ router.get('/', checkAuth.checkAuth, async (req, res, next) => {
             next(error);
         });
 
-    let warning = false;
+    let spendWarning = false;
     try {
         const count = await Spend.countDocuments({ sessionId: req.cookies.accessToken });
         if (count != 0) {
-            warning = true;
+            spendWarning = true;
+        }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+    let memberWarning = false;
+    try {
+        const count = await Member.countDocuments({ sessionId: req.cookies.accessToken });
+        if (count < 2) {
+            memberWarning = true;
         }
     }
     catch (error) {
@@ -34,7 +45,8 @@ router.get('/', checkAuth.checkAuth, async (req, res, next) => {
     }
     res.render('addmember', {
         members: members,
-        warning: warning
+        spendWarning: spendWarning,
+        memberWarning: memberWarning
     });
 });
 
@@ -63,19 +75,6 @@ router.post('/', checkAuth.checkAuth, async (req, res, next) => {
             next(error);
         });
 });
-
-router.get('/next', checkAuth.checkAuth, async (req, res, next) => {
-    try {
-        const count = await Member.countDocuments({ sessionId: req.cookies.accessToken });
-        if (count < 2)
-            return res.redirect('back');
-        res.redirect('/dashboard');
-    }
-    catch (error) {
-        console.log(error);
-        next(error);
-    }
-})
 
 router.get('/clear', checkAuth.checkAuth, async (req, res, next) => {
     await Member.deleteMany({ sessionId: req.cookies.accessToken })
