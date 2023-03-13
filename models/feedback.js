@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
 
-const memberSchema = mongoose.Schema({
+const feedbackSchema = new mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    sessionId: {
+    username: {
         type: String,
         required: true
     },
-    memberName: {
+    feedback: {
         type: String,
         required: true
     }
 });
 
-module.exports = mongoose.model("Member", memberSchema);
+module.exports = mongoose.model('Feedback', feedbackSchema); 

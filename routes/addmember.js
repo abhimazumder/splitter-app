@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+const checkAuth = require('../utils/checkAuthUtil');
+
+const mongoose = require('mongoose');
 const Spend = require('../models/spend');
 const Member = require('../models/member');
-
-const checkAuth = require('../utils/checkAuthUtil');
-const mongoose = require('mongoose');
 
 router.get('/', checkAuth.checkAuth, async (req, res, next) => {
     let members = [];
@@ -32,6 +32,7 @@ router.get('/', checkAuth.checkAuth, async (req, res, next) => {
         console.log(error);
         next(error);
     }
+
     let memberWarning = false;
     try {
         const count = await Member.countDocuments({ sessionId: req.cookies.accessToken });

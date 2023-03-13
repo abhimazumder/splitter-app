@@ -12,7 +12,7 @@ catch (error) {
     console.log("Error occured while connecting to database");
 }
 
-const welcomeRoute = require('./routes/welcome');
+const indexRoute = require('./routes/index');
 const addMemberRoute = require('./routes/addmember');
 const dashboardRoute = require('./routes/dashboard');
 const completeRoute = require('./routes/complete');
@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
-app.use('/', welcomeRoute);
+app.use('/', indexRoute);
 app.use('/addmember', addMemberRoute);
 app.use('/dashboard', dashboardRoute);
 app.use('/complete', completeRoute);

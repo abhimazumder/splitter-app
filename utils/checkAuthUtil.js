@@ -3,34 +3,32 @@ const jwt = require('jsonwebtoken');
 const member = require('../models/member');
 const Spend = require('../models/spend');
 
-const deleteData = (token, time) => {
-    setTimeout(() => {
-        member.deleteMany({ sessionId: token })
-            .exec()
-            .then(result => {
-                console.log("Members deleted due to token reached expiry\naccessToken :", token);
-            })
-            .catch(error => {
-                console.log(error);
-                next(error);
-            });
+const deleteData = (token) => {
+    member.deleteMany({ sessionId: token })
+        .exec()
+        .then(result => {
+            console.log("Members deleted due to token reached expiry\naccessToken :", token);
+        })
+        .catch(error => {
+            console.log(error);
+            next(error);
+        });
 
-        Spend.deleteMany({ sessionId: token })
-            .exec()
-            .then(result => {
-                console.log("Spends deleted due to token reached expiry\naccessToken :", token);
-            })
-            .catch(error => {
-                console.log(error);
-                next(error);
-            });
-    }, time);
+    Spend.deleteMany({ sessionId: token })
+        .exec()
+        .then(result => {
+            console.log("Spends deleted due to token reached expiry\naccessToken :", token);
+        })
+        .catch(error => {
+            console.log(error);
+            next(error);
+        });
 };
 
 const generateToken = (ip) => {
     const token = jwt.sign({ ip: ip }, process.env.SECRET_KEY, { expiresIn: '1h' });
-    console.log("Token generated for IP:", ip, "\naccessToken :", token);
-    deleteData(token, 1000 * 60 * 60);
+    console.log("Token generated for IP :", ip, "\naccessToken :", token);
+    setTimeout(deleteData, 1000 * 60 * 60, token);
     return token;
 }
 

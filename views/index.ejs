@@ -19,8 +19,7 @@
                                     class="bg-light text-dark">1 hour</kbd> long. All data will be <kbd
                                     class="bg-light text-dark">automatically deleted</kbd> once the session ends.</li>
                             <li class="p-1">&#127919; Once you start a session, you cannot create another session in
-                                parallel.</li>
-                            <li class="p-1">&#127919; You can end the session anytime by coming to this home page or
+                                parallel. You can end the session anytime by coming to this home page or
                                 right after completing the bill.</li>
                             <li class="p-1">&#127919; You need to add atleast <kbd class="bg-light text-dark">2
                                     members</kbd> to start adding expenses. Member names must be unique.</li>
@@ -37,8 +36,8 @@
         <div class="my-5 text-center">
             <a href="/create" class="btn btn-dark m-1 <%= sessionExists==true?'disabled':null %>">Create Session</a>
             <% if(sessionExists) { %>
-                <a href="/addmember" class="btn btn-dark m-1">Next</a>
                 <a href="/end" class="btn btn-dark m-1">End Session</a>
+                <a href="/addmember" class="btn btn-dark m-1">Next</a>
                 <% } %>
         </div>
     </div>

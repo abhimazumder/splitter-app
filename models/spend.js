@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const SpendSchema = mongoose.Schema({
-    sessionId: {
-        type: String,
-        required: true
-    },
     _id: {
         type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+    sessionId: {
+        type: String,
         required: true
     },
     memberName: {
